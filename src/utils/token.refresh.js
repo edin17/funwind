@@ -11,7 +11,7 @@ function refreshToken(req,res){
         res.status(400).json("Token is not volid.")
     }
     const expireTime=900
-    const newToken = jwt.sign({username:verifiedToken.username},process.env.JWT_SECRET,{
+    const newToken = jwt.sign({user_id:verifiedToken.user_id},process.env.JWT_SECRET,{
         algorithm:"HS256",
         expiresIn:expireTime
     })

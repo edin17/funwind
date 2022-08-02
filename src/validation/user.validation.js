@@ -7,12 +7,20 @@ const registerSchema = Joi.object({
     password:Joi.string().min(8).max(255).required(),
     repeated_password:Joi.any().valid(Joi.ref("password"))
 })
-
-
 function validateRegister(user){
     return registerSchema.validate(user)
 }
 
+const loginSchema = Joi.object({
+    username:Joi.any().required(),
+    password:Joi.any().required()
+})
+
+function validateLogin(data){
+    return loginSchema.validate(data)
+}
+
 module.exports = {
-    validateRegister:validateRegister
+    validateRegister:validateRegister,
+    validateLogin:validateLogin
 }

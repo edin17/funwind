@@ -14,6 +14,7 @@ function verifyToken(req,res,next){
         }else if(result.rows.length===0){
             const verifiedToken = jwt.verify(token,process.env.JWT_SECRET)
             if(verifiedToken){
+                req.user=verifiedToken
                 next()
             }else{
                 return false

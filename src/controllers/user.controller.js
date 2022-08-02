@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require("dotenv").config
 
-const { validateRegister } = require("../validation/user.validation")
+const { validateRegister, validateLogin } = require("../validation/user.validation")
 
 
 async function httpRegisterUser(req,res){
@@ -42,36 +42,41 @@ function httpLoginUser(req,res){
         username:req.body.username,
         password:req.body.password
     }
-    
-    db.query(`SELECT username,password FROM users WHERE username='${user.username}'`,async (err,result)=>{
-        if(err){
-            return res.status(400).json(err.message)
-        }else{
-            const userData = result.rows[0]
-            const comparedPassword = await bcrypt.compare(user.password,userData.password)
-            console.log(comparedPassword)
-            if(comparedPassword){
-                const expiresTime=900
-                const token = jwt.sign({username:userData.username},process.env.JWT_SECRET,{
-                    algorithm:"HS256",
-                    expiresIn:expiresTime
-                })
-                if(token){
-                    res.cookie("token",token,{maxAge:expiresTime*1000})
-                    res.end()
-                }
+    const {error,result} = validateLogin(user)
+    if (!error) {
+        db.query(`SELECT user_id,password FROM users WHERE username='${user.username}'`,async (err,result)=>{
+            if(err){
+                return res.status(400).json(err.message)
             }else{
-                res.status(400).json("Password is not correct.")
+                const userData = result.rows[0]
+                const comparedPassword = await bcrypt.compare(user.password,userData.password)
+                console.log(comparedPassword)
+                if(comparedPassword){
+                    const expiresTime=900
+                    const token = jwt.sign({user_id:userData.user_id},process.env.JWT_SECRET,{
+                        algorithm:"HS256",
+                        expiresIn:expiresTime
+                    })
+                    if(token){
+                        res.cookie("token",token,{maxAge:expiresTime*1000})
+                        res.end()
+                    }
+                }else{
+                    res.status(400).json("Password is not correct.")
+                }
             }
-        }
-        
-    })
+            
+        })
+    } else {
+        res.status(400).json(error.details[0].message)
+    }
+
     
 }
 
 function httpLogOutUser(req,res){
     const token = req.cookies.token
-    const exp_date =  new Date().toLocaleString() 
+    const exp_date =  new Date().toLocaleString("en-GB") 
     console.log(exp_date)
     const values = [token, exp_date]
     db.query(`INSERT INTO blacklist(token,exp_date) VALUES($1,$2)`,values,(err,result)=>{
