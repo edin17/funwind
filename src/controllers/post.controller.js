@@ -75,12 +75,10 @@ function httpDeletePost(req,res){
 function httpGetSinglePost(req,res){
     const id = Number(req.params.id)
 
-    db.query(`SELECT photo,post_date,topic,posts.description,users.username,users.profile_photo,reactions.reaction_code FROM (((posts 
-    INNER JOIN users ON posts.user_id=users.user_id ) 
-    INNER JOIN reactions ON reactions.post_id=posts.post_id) 
-    INNER JOIN users ON users.user_id=reactions.user_id) WHERE posts.post_id=${id};`,(err,result)=>{
+    db.query(`SELECT post_date,topic,posts.description,users.username,users.profile_photo FROM posts 
+    INNER JOIN users ON posts.user_id=users.user_id
+    WHERE posts.post_id=${id};`,(err,result)=>{
         if(!err){
-            console.log(result.rows[0])
             const data = result.rows[0]
             data.timePast=postTimePast(data.post_date,data.post_date)
             res.json(data)
