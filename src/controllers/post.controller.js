@@ -1,9 +1,7 @@
 const db = require("../utils/connect")
 const { validateCreatePost, validateModifyPost } = require("../validation/post.validation")
 const cloudinary = require("cloudinary").v2
-const fs = require("fs")
-const path = require("path")
-const { postTimePast } = require("../utils/date.functions")
+const { postTimePast, cleanLocalPhotos } = require("../utils/date.functions")
 require("dotenv").config()
 
 cloudinary.config({
@@ -32,11 +30,7 @@ function httpCreatePost(req,res){
                     db.query("INSERT INTO posts(photo,user_id,post_date,topic,description) VALUES($1,$2,$3,$4,$5)",values,(err,result)=>{
                         if(!err){
                             res.status(200).json(true)
-                            fs.readdir(path.join(__dirname,"..","..","public"),(err,files)=>{
-                                for(let file of files){
-                                    fs.unlinkSync(path.join(__dirname,"..","..","public",file))
-                                }
-                            })
+                            cleanLocalPhotos()
                         }else{
                             res.status(400).json(err)
                         }

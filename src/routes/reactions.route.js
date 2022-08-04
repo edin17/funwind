@@ -1,4 +1,3 @@
-const { httpDeletePost } = require("../controllers/post.controller")
 const { httpAddReaction, httpGetReactions, httpDeleteReaction } = require("../controllers/reaction.controller")
 const { verifyToken } = require("../utils/token.verify")
 
