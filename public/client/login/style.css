@@ -1,0 +1,11 @@
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.auth-box{
+    width: 476px;
+    height: 80vh;
+    border: 1px solid black;
+}
