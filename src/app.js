@@ -12,8 +12,8 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use("/auth",express.static(path.join(__dirname,"..","public","client","login")))
-
+app.use("/login",express.static(path.join(__dirname,"..","public","client","login")))
+app.use("/register",express.static(path.join(__dirname,"..","public","client","register")))
 app.use("/user",userRouter)
 app.use("/post",postRouter)
 app.use("/reaction",reactionRouter)

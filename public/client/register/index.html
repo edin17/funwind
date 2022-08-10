@@ -6,20 +6,18 @@
     </head>
     <body>
         <div class="auth-box">
-            <h1>LOGIN</h1>
+            <h1>REGISTER</h1>
             <div class="input-box">
                 <input id="username" type="text" placeholder="Username">
+                <input id="email" type="text" placeholder="Email">
+                <input id="age" type="number" placeholder="Age(number)">
                 <input id="password" type="password" placeholder="Password">
-                <button onclick="loginUser()" id="submit-btn">LOGIN NOW!</button>
-                <hr>
+                <input id="repeat-password" type="password" placeholder="Repeat password">
+                <button onclick="registerUser()" id="submit-btn">REGISTER NOW!</button>
             </div>
-            <div id="google-auth">
-                <p>Sign in with Google</p>
-            </div>
-            <hr>
             <p id="error"></p>
-            <a href="/register" id="auth-link">or register now!</a>
+            <a href="/login" id="auth-link">if you already have acc, login now!</a>
         </div>
-        <script src="login.js"></script>
+        <script src="register.js"></script>
     </body>
 </html>

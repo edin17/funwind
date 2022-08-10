@@ -7,8 +7,6 @@ require("dotenv").config
 
 const { validateRegister, validateLogin } = require("../validation/user.validation")
 const { cleanLocalPhotos } = require("../utils/date.functions")
-const { func } = require("joi")
-
 
 
 async function httpRegisterUser(req,res){
@@ -43,10 +41,7 @@ async function httpRegisterUser(req,res){
 }
 
 function httpLoginUser(req,res){
-    const user = {
-        username:req.body.username,
-        password:req.body.password
-    }
+    const user = req.body
     const {error,result} = validateLogin(user)
     if (!error) {
         db.query(`SELECT user_id,password FROM users WHERE username='${user.username}'`,async (err,result)=>{
@@ -54,21 +49,25 @@ function httpLoginUser(req,res){
                 return res.status(400).json(err.message)
             }else{
                 const userData = result.rows[0]
-                const comparedPassword = await bcrypt.compare(user.password,userData.password)
-                console.log(comparedPassword)
-                if(comparedPassword){
-                    const expiresTime=900
-                    const token = jwt.sign({user_id:userData.user_id},process.env.JWT_SECRET,{
-                        algorithm:"HS256",
-                        expiresIn:expiresTime
-                    })
-                    if(token){
-                        res.cookie("token",token,{maxAge:expiresTime*1000})
-                        res.end()
+                if(userData){
+                    const comparedPassword = await bcrypt.compare(user.password,userData.password)
+                    if(comparedPassword){
+                        const expiresTime=900
+                        const token = jwt.sign({user_id:userData.user_id},process.env.JWT_SECRET,{
+                            algorithm:"HS256",
+                            expiresIn:expiresTime
+                        })
+                        if(token){
+                            res.cookie("token",token,{maxAge:expiresTime*1000})
+                            res.end()
+                        }
+                    }else{
+                        res.status(400).json("Password is not correct.")
                     }
                 }else{
-                    res.status(400).json("Password is not correct.")
+                    return res.status(404).json("User does not exist.")
                 }
+
             }
             
         })
