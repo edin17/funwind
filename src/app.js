@@ -14,6 +14,8 @@ app.use(express.urlencoded({extended:true}))
 
 app.use("/login",express.static(path.join(__dirname,"..","public","client","login")))
 app.use("/register",express.static(path.join(__dirname,"..","public","client","register")))
+app.use("/upload",express.static(path.join(__dirname,"..","public","client","upload")))
+
 app.use("/user",userRouter)
 app.use("/post",postRouter)
 app.use("/reaction",reactionRouter)
