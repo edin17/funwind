@@ -28,6 +28,8 @@ header a{
 }
 #search{
     width: 30%;
+    border-radius: 5px;
+    border: none;
 }
 nav{
     width: 100vw;
@@ -52,10 +54,57 @@ nav a{
 }
 #image-upload{
     width: 300px;
-    height: 500px;
-    border: 1px solid rgb(145, 145, 145);
+    height: 80%;
+    border: 1px dotted rgb(78, 78, 227);
+    background-color: rgb(231, 231, 231);
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
+#post-info{
+    width: 30vw;
+    height: 80%;
+    border: 1px dotted rgb(78, 78, 227);
+    background-color: rgb(231, 231, 231);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#post-info h2{
+    color: rgb(78, 78, 227);
+}
+#post-info input{
+    width: 80%;
+    height: 36px;
+}
+#description{
+    width: 80%;
+    height: 20%;
+}
+#submit-btn{
+    background-color: rgb(33, 179, 33);
+    border: none;
+    color: white;
+    width: 30%;
+    height: 36px;
+}
+@media(max-width:720px){
+    #upload-content{
+        display: block;
+        overflow-y: scroll;
+    }
+    #image-upload{
+        width: 100%;
+        height: 60vh;
+        background-color: white;
+        border: none;
+        border-bottom: 2px dotted rgb(78, 78, 227);  
+    }
+    #post-info{
+        width: 100%;
+        height: 40vh;
+        background-color: white;
+        border: none;
+    }
+}

@@ -3,9 +3,11 @@ const path = require("path");
 
 // Multer config
 module.exports = multer({
+
   storage: multer.diskStorage({
     destination:function(req,file,cb){
-      cb(null,path.join(__dirname,"..","..","public"))
+
+      cb(null,path.join(__dirname,"..","..","public","photos"))
     }}),
   fileFilter: (req, file, cb) => {
     console.log(file)
@@ -20,4 +22,5 @@ module.exports = multer({
   filename:(req,file,cb)=>{
     cb(null, file.originalname)
   }
+  
 });

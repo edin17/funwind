@@ -42,6 +42,7 @@ async function httpRegisterUser(req,res){
 
 function httpLoginUser(req,res){
     const user = req.body
+    console.log(user)
     const {error,result} = validateLogin(user)
     if (!error) {
         db.query(`SELECT user_id,password FROM users WHERE username='${user.username}'`,async (err,result)=>{
@@ -52,14 +53,14 @@ function httpLoginUser(req,res){
                 if(userData){
                     const comparedPassword = await bcrypt.compare(user.password,userData.password)
                     if(comparedPassword){
-                        const expiresTime=900
+                        const expiresTime=900000
                         const token = jwt.sign({user_id:userData.user_id},process.env.JWT_SECRET,{
                             algorithm:"HS256",
                             expiresIn:expiresTime
                         })
                         if(token){
                             res.cookie("token",token,{maxAge:expiresTime*1000})
-                            res.end()
+                            res.json(userData)
                         }
                     }else{
                         res.status(400).json("Password is not correct.")

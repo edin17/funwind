@@ -5,6 +5,7 @@ function loginUser(){
         username:window.document.getElementById("username").value,
         password:window.document.getElementById("password").value
     }
+
     fetch("https://localhost:8000/user/login",{
         method:"POST",
         headers:{
@@ -17,12 +18,13 @@ function loginUser(){
     })
     .then(data=>{
         if(typeof(data)==="object"){
-            window.location = "/" 
+            window.location = "/upload"
         }else{
             const errorText = window.document.getElementById("error")
             errorText.style.display="block"
             errorText.innerText=data
         }
     })
+    console.log(loginData)
 }
     

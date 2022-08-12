@@ -11,22 +11,25 @@
                 <img src="smile.jpg">
                 <h1>FUN WIND</h1>
             </div>
-            <input type="text" id="search">
+            <input type="text" id="search" placeholder="Search users...">
             <a href="/settings">Setitngs</a>
         </header>
-        <main id="upload-content">
+        <form id="upload-content" action="/post/create" method="POST" enctype="multipart/form-data">
            <div id="image-upload">
-                <input type="file">
+                <input type="file" name="photo" id="file">
            </div>
-           <div id="post-info">
-                <input type="text">
+           <div  id="post-info">
+                <h2>Input some post info</h2>
+                <input type="text" id="topic" placeholder="Topic" name="topic"><br>
+                <textarea type="text" id="description" name="description" placeholder="Description"></textarea><br>
+                <input id="submit-btn" type="submit" >
            </div>
-        </main>
+        </form>
         <nav>
-            <a href="">Home</a>
-            <a href="">Public</a>
-            <a href="">Upload</a>
-            <a href="">Profile</a>
+            <a href="/">Home</a>
+            <a href="/public">Public</a>
+            <a href="/upload">Upload</a>
+            <a href="/profile">Profile</a>
         </nav>
     </body>
     <script src="upload.js"></script>

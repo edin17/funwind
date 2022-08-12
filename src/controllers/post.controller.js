@@ -13,7 +13,6 @@ cloudinary.config({
 
 
 function httpCreatePost(req,res){
-    console.log("here")
     const post = {
         user_id:req.user.user_id,
         topic:req.body.topic,

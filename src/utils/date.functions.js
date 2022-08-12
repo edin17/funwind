@@ -16,9 +16,9 @@ function postTimePast(time,date){
 }
 
 function cleanLocalPhotos(){
-    fs.readdir(path.join(__dirname,"..","..","public"),(err,files)=>{
+    fs.readdir(path.join(__dirname,"..","..","public","photos"),(err,files)=>{
         for(let file of files){
-            fs.unlinkSync(path.join(__dirname,"..","..","public",file))
+            fs.unlinkSync(path.join(__dirname,"..","..","public","photos",file))
         }
     })
 }
