@@ -28,7 +28,7 @@ function httpCreatePost(req,res){
                     const values = [post.photo_url, post.user_id, post.post_date,post.topic,post.description]
                     db.query("INSERT INTO posts(photo,user_id,post_date,topic,description) VALUES($1,$2,$3,$4,$5)",values,(err,result)=>{
                         if(!err){
-                            res.status(200).json(true)
+                            res.redirect("/")
                             cleanLocalPhotos()
                         }else{
                             res.status(400).json(err)

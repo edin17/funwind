@@ -6,21 +6,25 @@
     </head>
 
     <body>
-        <header>
+        <header id="header">
             <div id="logo-name">
                 <img src="smile.jpg">
                 <h1>FUN WIND</h1>
             </div>
-            <input type="text" id="search" placeholder="Search users...">
+            <span id="search-box">
+                <input type="text" id="search" placeholder="Search users...">
+                <button id="search-btn">S</button>
+            </span>
+            
             <a href="/settings">Setitngs</a>
         </header>
-        <form id="upload-content" action="/post/create" method="POST" enctype="multipart/form-data">
+        <form id="upload-content" action="/post/create"  method="POST" enctype="multipart/form-data">
            <div id="image-upload">
-                <input type="file" name="photo" id="file">
+                <input required file-accept="jpg jpeg png" type="file" name="photo" id="file">
            </div>
            <div  id="post-info">
                 <h2>Input some post info</h2>
-                <input type="text" id="topic" placeholder="Topic" name="topic"><br>
+                <input required min="1" max="30" type="text" id="topic" placeholder="Topic" name="topic"><br>
                 <textarea type="text" id="description" name="description" placeholder="Description"></textarea><br>
                 <input id="submit-btn" type="submit" >
            </div>

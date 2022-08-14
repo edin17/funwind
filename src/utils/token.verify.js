@@ -17,7 +17,7 @@ function verifyToken(req,res,next){
                 req.user=verifiedToken
                 next()
             }else{
-                return false
+                return res.redirect("/login")
             }
         }else{
             res.status(401).json("Your token is on blacklist, log in again.")

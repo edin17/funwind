@@ -142,6 +142,25 @@ function httpUnfollow(req,res){
     })
 }
 
+function httpSearch(req,res){
+    const searched = req.params.username
+    if(searched.length===0){
+        return
+    }else{
+        db.query(`SELECT username,profile_photo FROM users WHERE username='${searched}'`,(err,result)=>{
+            if(!err){
+                if(result.rows.length===0){
+                    return res.status(404).json("Not found.")
+                }else{
+                    return res.json(result.rows)
+                }
+            }else{
+                return res.status(400).json(err)
+            }
+        })
+    }
+}
+
 
 module.exports = {
     httpRegisterUser:httpRegisterUser,
@@ -149,5 +168,6 @@ module.exports = {
     httpLogOutUser:httpLogOutUser,
     httpUploadProfilePhoto:httpUploadProfilePhoto,
     httpFollow:httpFollow,
-    httpUnfollow:httpUnfollow
+    httpUnfollow:httpUnfollow,
+    httpSearch:httpSearch
 }

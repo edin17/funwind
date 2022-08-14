@@ -1,26 +1,34 @@
-{function uploadPost(){
-    const file = window.document.getElementById("file")
-    const postInfo = {
-        topic:window.document.getElementById("topic"),
-        description:window.document.getElementById("description")
-    }
-    console.log(file.files[0])
-    let formData = new FormData()
-    formData.append("photo",file.files[0])
-    formData.append("topic",postInfo.topic.value)
-    formData.append("description",postInfo.description.value)
+function search(){
+    const searched = window.document.getElementById("search").value
 
-    fetch("https://localhost:8000/post/create",{
-        method:"POST",
+    fetch(`https://localhost:8000/user/search/${searched}`,{
         headers:{
-            "Content-Type":"multipart/form-data; boundary=<calculated when request is sent>"
-        },
-        body:formData
+            "Accept":"application/json"
+        }
     })
     .then(res=>{
         return res.json()
     })
     .then(data=>{
-        console.log(data)
+        const header = window.document.getElementById("upload-content")
+        const usersList = window.document.createElement("div")
+        usersList.id="users-list"
+        header.appendChild(usersList)
+        data.forEach(el=>{
+            const listEl = window.document.createElement("div")
+            listEl.id="list-element"
+            usersList.appendChild(listEl)
+            const userImg = window.document.createElement("img")
+            userImg.src=el.profile_photo
+            const displayName = window.document.createElement("h3")
+            displayName.innerText = el.username
+            listEl.appendChild(userImg)
+            listEl.appendChild(displayName)
+        })
+
+
     })
-}}
+}
+
+const searchBtn = window.document.getElementById("search-btn")
+searchBtn.addEventListener("click",search)

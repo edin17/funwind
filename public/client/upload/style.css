@@ -5,8 +5,8 @@ header{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100vw;
-    height: 5vh;
+    width: 100%;
+    height: 5%;
     background-color: rgb(78, 78, 227);
     color: white;
     font-family: "Arial";
@@ -27,13 +27,24 @@ header a{
     border-radius: 50%;
 }
 #search{
-    width: 30%;
+    width: 80%;
     border-radius: 5px;
     border: none;
 }
+#search-box{
+    width: 30%;
+}
+#search-btn{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(33, 179, 33);
+    border: none;
+    color: white;
+}
 nav{
-    width: 100vw;
-    height: 5vh;
+    width: 100%;
+    height: 5%;
     background-color: rgb(78, 78, 227);
     display: flex;
     justify-content: space-around;
@@ -46,11 +57,12 @@ nav a{
     text-decoration: none;
 }
 #upload-content{
-    width: 100vw;
-    height: 90vh;
+    width: 100%;
+    height: 90%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin: 0;
 }
 #image-upload{
     width: 300px;
@@ -89,6 +101,17 @@ nav a{
     width: 30%;
     height: 36px;
 }
+
+#users-list{
+    position: absolute;
+    width: 150px;
+    min-height: 100px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(231, 231, 231);
+}
+
+
 @media(max-width:720px){
     #upload-content{
         display: block;
