@@ -10,13 +10,21 @@ function search(){
         return res.json()
     })
     .then(data=>{
-        const header = window.document.getElementById("upload-content")
+        const header = window.document.getElementById("header")
         const usersList = window.document.createElement("div")
         usersList.id="users-list"
+        usersList.style.display="block"
         header.appendChild(usersList)
+        const close = document.createElement("button")
+        close.id="close"
+        close.innerText="C"
+        close.addEventListener("click",()=>{
+            usersList.remove()
+        })
+        usersList.appendChild(close)
         data.forEach(el=>{
             const listEl = window.document.createElement("div")
-            listEl.id="list-element"
+            listEl.className="list-element"
             usersList.appendChild(listEl)
             const userImg = window.document.createElement("img")
             userImg.src=el.profile_photo
@@ -29,6 +37,8 @@ function search(){
 
     })
 }
+
+
 
 const searchBtn = window.document.getElementById("search-btn")
 searchBtn.addEventListener("click",search)

@@ -1,4 +1,4 @@
-const { httpRegisterUser, httpLoginUser, httpLogOutUser, httpUploadProfilePhoto, httpFollow, httpUnfollow, httpSearch } = require("../controllers/user.controller")
+const { httpRegisterUser, httpLoginUser, httpLogOutUser, httpUploadProfilePhoto, httpFollow, httpUnfollow, httpSearch, httpGetProfile } = require("../controllers/user.controller")
 const { verifyToken } = require("../utils/token.verify")
 const upload = require("../utils/multer.config")
 
@@ -11,5 +11,6 @@ userRouter.put("/uploadprofile",verifyToken,upload.single("picture"),httpUploadP
 userRouter.post("/follow",verifyToken,httpFollow)
 userRouter.post("/unfollow",verifyToken,httpUnfollow)
 userRouter.get("/search/:username",verifyToken,httpSearch)
+userRouter.get("/getprofile/:id",verifyToken,httpGetProfile)
 
 module.exports=userRouter

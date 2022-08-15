@@ -162,6 +162,26 @@ function httpSearch(req,res){
 }
 
 
+function httpGetProfile(req,res){
+    const userid = Number(req.params.id)
+
+    db.query(`SELECT username,email,description,age,profile_photo,profile_date FROM users
+    WHERE users.user_id=${userid}`,(err,result)=>{
+        if(!err){
+            return res.json(result.rows)
+        }else{
+            return res.status(500).json(err.message)
+        }
+    })
+
+
+    db.query(`SELECT COUNT(user_id),photo,topic,description,post_date FROM posts
+    WHERE user_id=${userid}`,()=>{
+        
+    })
+}
+
+
 module.exports = {
     httpRegisterUser:httpRegisterUser,
     httpLoginUser:httpLoginUser,
@@ -169,5 +189,6 @@ module.exports = {
     httpUploadProfilePhoto:httpUploadProfilePhoto,
     httpFollow:httpFollow,
     httpUnfollow:httpUnfollow,
-    httpSearch:httpSearch
+    httpSearch:httpSearch,
+    httpGetProfile:httpGetProfile
 }

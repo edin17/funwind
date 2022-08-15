@@ -16,6 +16,7 @@ app.use(express.urlencoded({extended:true}))
 app.use("/login",express.static(path.join(__dirname,"..","public","client","login")))
 app.use("/register",express.static(path.join(__dirname,"..","public","client","register")))
 app.use("/upload",express.static(path.join(__dirname,"..","public","client","upload")))
+app.use("/profile",express.static(path.join(__dirname,"..","public","client","profile")))
 app.use("/",verifyToken,express.static(path.join(__dirname,"..","public","client","home")))
 
 app.use("/user",userRouter)

@@ -16,7 +16,7 @@ function httpAddReaction(req,res){
         db.query("INSERT INTO reactions VALUES($1,$2,$3,$4)",values,(err,result)=>{
             if(!err){
                 res.json(true)
-            }else if(err.code==="23505"){
+            }else if(err.code=="23505"){
                 httpUpdateReaction(req,res,reactionData)
             }else{
                 res.status(400).json(err)
