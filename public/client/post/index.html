@@ -23,8 +23,8 @@
             <div id="post">
                 <div id="author-info">
                     <span>
-                        <img>
-                        <h3>username</h3>
+                        <img id="user-img">
+                        <h3 id="username">username</h3>
                     </span>
 
                 </div>
@@ -40,15 +40,15 @@
                 </div>
                 <div id="reaction">
                     <span>
-                        <button>1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button>4</button>
-                        <button>5</button>
+                        <button onclick="addReaction(1)">1</button>
+                        <button onclick="addReaction(2)">2</button>
+                        <button onclick="addReaction(3)">3</button>
+                        <button onclick="addReaction(4)">4</button>
+                        <button onclick="addReaction(5)">5</button>
                     </span>
                     <span>
                         <img>
-                        <p>333 (4,01)</p>
+                        <p id="reaction-stats">333 (4,01)</p>
                     </span>
 
                 </div>
@@ -60,5 +60,6 @@
             <a href="/upload">Upload</a>
             <a href="/profile">Profile</a>
         </nav>
+        <script src="post.js"></script>
     </body>
 </html>
