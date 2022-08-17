@@ -102,10 +102,22 @@ function httpModifyPost(req,res){
     }
 
 }
+function httpGetProfilePosts(req,res){
+    const userid = Number(req.params.userid)
+    db.query(`SELECT photo,post_id FROM posts
+    WHERE user_id=${userid}`,(err,result)=>{
+        if(!err){
+            return res.json(result.rows)
+        }else{
+            return res.status(400).json(err.message)
+        }
+    })
+}
 
 module.exports = {
     httpCreatePost:httpCreatePost,
     httpDeletePost:httpDeletePost,
     httpGetSinglePost:httpGetSinglePost,
-    httpModifyPost:httpModifyPost
+    httpModifyPost:httpModifyPost,
+    httpGetProfilePosts:httpGetProfilePosts
 }

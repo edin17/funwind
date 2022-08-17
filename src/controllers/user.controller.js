@@ -165,21 +165,22 @@ function httpSearch(req,res){
 function httpGetProfile(req,res){
     const userid = Number(req.params.id)
 
-    db.query(`SELECT username,email,description,age,profile_photo,profile_date FROM users
-    WHERE users.user_id=${userid}`,(err,result)=>{
+    db.query(`SELECT username,email,age,profile_date,users.description,profile_photo,COUNT(posts.user_id) AS posts FROM users 
+    INNER JOIN posts ON users.user_id=posts.user_id
+    WHERE users.user_id = ${userid} GROUP BY username,age,email,profile_date,users.description,profile_photo;`,(err,result)=>{
         if(!err){
-            return res.json(result.rows)
+            if(result.rows.length!==0){
+                return res.json(result.rows) 
+            }else{
+                return res.status(404).json("User does not exists.")
+            }
+
         }else{
             return res.status(500).json(err.message)
         }
     })
-
-
-    db.query(`SELECT COUNT(user_id),photo,topic,description,post_date FROM posts
-    WHERE user_id=${userid}`,()=>{
-        
-    })
 }
+
 
 
 module.exports = {
@@ -190,5 +191,5 @@ module.exports = {
     httpFollow:httpFollow,
     httpUnfollow:httpUnfollow,
     httpSearch:httpSearch,
-    httpGetProfile:httpGetProfile
+    httpGetProfile:httpGetProfile,
 }
